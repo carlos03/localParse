@@ -5,6 +5,19 @@ var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
 
+var ParseDashboard = require('parse-dashboard');
+
+var dashboard = new ParseDashboard({
+  "apps": [
+    {
+      "serverURL": "http://localhost:1337/parse",
+      "appId": "app",
+      "masterKey": "master",
+      "appName": "MyApp"
+    }
+  ]
+});
+
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 if (!databaseUri) {
@@ -33,7 +46,14 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
+//--------------------------------
+// make the Parse Dashboard available at /dashboard
+app.use('/dashboard', dashboard);
 
+var httpServer = require('http').createServer(app);
+httpServer.listen(4040);
+
+//--------------------------------
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
   res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
