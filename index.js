@@ -9,7 +9,7 @@ var ParseDashboard = require('parse-dashboard');
 var dashboard = new ParseDashboard({
   "apps": [
     {
-      "serverURL": "http://localhost:1337/parse",
+      "serverURL": "https://serverlocalparse.herokuapp.com:1337/parse",
       "appId": "app",
       "masterKey": "master",
       "appName": "MyApp"
@@ -27,7 +27,7 @@ var api = new ParseServer({
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'app',
   masterKey: process.env.MASTER_KEY || '', //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
+  serverURL: process.env.SERVER_URL || 'https://serverlocalparse.herokuapp.com:1337/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
   }
