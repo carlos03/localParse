@@ -50,9 +50,6 @@ app.use(mountPath, api);
 // make the Parse Dashboard available at /dashboard
 app.use('/dashboard', dashboard);
 
-var httpServer = require('http').createServer(app);
-httpServer.listen(4040);
-
 //--------------------------------
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
